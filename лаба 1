@@ -1,0 +1,44 @@
+f = {'0':'ноль', '1' : "один", '2': "два", '3': "три", '4':"четыре", '5':"пять", '6':"шесть", '7' : "семь", '8':"восемь", '9':"девять"}
+buffer_len = 1
+work_buffer = ''
+work_buffer1 = ''
+d_max = 0
+s_max = ''
+#i = 1
+work_buffer_len = buffer_len
+with open("test.txt", "r") as file:
+    buffer = file.read(buffer_len)
+    if not buffer:
+        print("Файл пуст")
+    while buffer:
+        while buffer >= '0' and buffer <= '9':
+            if buffer >= '0' and buffer <= '9':
+                work_buffer += buffer
+            buffer = file.read(buffer_len)
+        if len(work_buffer) > 1:
+            if work_buffer[0] == "1" and work_buffer[1] == '1':
+                work_buffer = work_buffer[1:]
+                for i in range(len(work_buffer)-1):
+                    if work_buffer[i] != work_buffer[i+1]:
+                        work_buffer1 += work_buffer[i] + ('0' * (len(work_buffer)))
+                        i+=1
+                    else:
+                        work_buffer1 += work_buffer[i]
+                        i+=1
+                if work_buffer[-2] != work_buffer[-1]:
+                    work_buffer1 += work_buffer[-1] + '0'*(len(work_buffer)) + '1'
+                elif work_buffer[-2] == '1' and work_buffer[-1] =='1':
+                    work_buffer1+='1'*2 
+                else:
+                    work_buffer1+='1'
+                d = int(work_buffer)
+                if d > d_max:
+                    d_max=d
+                    s_max = work_buffer1
+                print(work_buffer1)
+                    
+        work_buffer = ''
+        work_buffer1 = ''
+        buffer = file.read(buffer_len)
+for i in range(len(s_max)):
+    print(f[s_max[i]])
