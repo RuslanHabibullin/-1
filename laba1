@@ -41,9 +41,9 @@ with open("test.txt", "r") as file:
                 if d > d_max:
                     d_max=d
                     s_max = work_buffer1
-                print(work_buffer1)
+                print('1'+ work_buffer, ' - ', work_buffer1)
         elif len(work_buffer) == 2 and work_buffer[0] == '1' and work_buffer[1] == '1':
-            print(work_buffer)
+            print(work_buffer, ' - ', work_buffer)
         work_buffer = ''
         work_buffer1 = ''
         buffer = file.read(buffer_len)
