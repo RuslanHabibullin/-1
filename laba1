@@ -30,13 +30,13 @@ with open("test.txt", "r") as file:
                     else:
                         work_buffer1 += work_buffer[i]
                         i+=1
-                if work_buffer[-2] != work_buffer[-1]:
+                if work_buffer[-2] != work_buffer[-1] and work_buffer[-1] != '1':
                     work_buffer1 += work_buffer[-1] + '0'*(len(work_buffer)) + '1'
                 
-                elif work_buffer[-2] == '1' and work_buffer[-1] =='1':
+                elif work_buffer[-2] != work_buffer[-1] == '1':
                     work_buffer1+='1'*2 
                 else:
-                    work_buffer1 = work_buffer1 + work_buffer1[-1] + '1'
+                    work_buffer1 = work_buffer1 + work_buffer1[-1]  + '1'
                 d = int(work_buffer)
                 if d > d_max:
                     d_max=d
@@ -47,5 +47,6 @@ with open("test.txt", "r") as file:
         work_buffer = ''
         work_buffer1 = ''
         buffer = file.read(buffer_len)
+print(f['0'])
 for i in range(len(s_max)):
     print(f[s_max[i]])
