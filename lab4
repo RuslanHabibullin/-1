@@ -1,0 +1,93 @@
+import numpy as mt
+import seaborn as sns
+from matplotlib import pyplot as plt
+import random
+
+k = int(input("Введите число К: "))
+n = int(input("Введите порядок матрицы: "))
+hn = n//2
+hn1 = hn
+hn2 = hn
+
+if n % 2 == 1:
+    hn1 = hn1 + 1
+    hn2 = hn1 - 1
+zero = 0
+A = mt.random.randint(-10.0, 11.0, (n, n))
+F = A.copy()
+E = mt.array(A[:hn2, :hn2])
+B = mt.array(A[:hn2, hn1:])
+print('\n Подматрица B матрицы A:\n',B)
+C = mt.array(A[hn1:, hn2:])
+D= mt.array(A[hn1:, :hn1])
+print("\nМатрица A:\n",A)
+for i in range(hn,n):
+    for j in range(hn,n):
+        if (j%2)!=0 and A[i][j] == 0:
+            zero += 1
+x = 0
+for o in range (n):
+    for p in range (n):
+        if o == 0 or o == n-1 or p == 0 or p == n-1:
+            x *= A[o][p]
+        print(A[o][p], end=' ')
+        if p == n-1:
+            print()
+print('произведение равно',x)
+
+if  zero > x:
+    print("\nМеняем симметрично B и C")
+    F[:hn2, hn1:] = C[-1::-1, :hn2]
+    F[hn1:, hn1:] = B[-1::-1, :hn2]
+
+else:
+    print("\nМеняем несимметрично B и Е")
+    F[:hn2, hn1:] = E
+    F[:hn2, :hn2] = B
+print("\nМатрица F:\n", F)
+trans_A=mt.transpose(A)
+det_A=mt.linalg.det(A)
+diag_F=mt.trace(F)
+if det_A> diag_F:
+    print('\n Вычисляем выражение : A^-1 * AT – K * F ')
+    A_degree = mt.linalg.matrix_power(A, -1)
+    print('\nА в -1 степени:\n', A_degree)
+    print('\nТранспонированная матрица A:\n', trans_A)
+    A1 = mt.dot(A_degree, trans_A)
+    print('\nУмножение A^-1 на AT\n', A1)
+    F1 = mt.dot(k,F)
+    print('\nУмножение F на k\n', F1)
+    print('\nРазница матриц')
+    ans = mt.subtract(A1, F1)
+    print('\nИтоговый результат:\n',ans)
+else:
+    print('\n Вычисляем выражение:(A + G^-1 - F^-1) * K ')
+    G = mt.tril(A)
+    G1 = mt.linalg.matrix_power(G, -1)
+    print('\nНижняя треугольная матрица G из матрицы A в степени -1:\n', G)
+    F2 = mt.linalg.matrix_power(F, -1)
+    print('\nМатрица F в степени -1:\n', F)
+    ans1 = mt.dot(mt.subtract(mt.subtract(A,G1),F2),k)
+    print('\nИтоговый результат:\n', ans1)
+
+explode = [0] * (n - 1)
+explode.append(0.1)
+plt.title("Круговая диаграмма")
+try:
+    sizes = [round(mt.mean(abs(F[i, ::])) * 100, 1) for i in range(n)]
+except IndexError:
+    sizes = [round(mt.mean(abs(F[i, ::])) * 100, 1) for i in range(n)]
+plt.pie(sizes, labels=list(range(1, n + 1)), explode=explode, autopct='%1.1f%%', shadow=True)
+plt.show()
+
+plt.plot(A)
+plt.title("График")
+plt.ylabel("y axis")
+plt.xlabel("x axis")
+plt.show()
+
+sns.heatmap(A, cmap="Spectral", annot = True)
+plt.title("Тепловая карта")
+plt.ylabel("Номер строки")
+plt.xlabel("Номер столбца")
+plt.show()
