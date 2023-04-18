@@ -1,0 +1,92 @@
+import random
+def matrix_zero(size):
+        return [[0 for i in range(size)] for j in range(size)]
+
+def print_matrix(matrix):    
+  for row in matrix:
+    for elem in row:
+      print('{:4}'.format(elem), end=' ')
+    print()
+
+def matrix_input(matrix,i1,i2,j1,j2):
+    zero_matrix=matrix_zero(len(matrix)//2 + len(matrix)%2)
+    for i in range(i1, i2):
+        for j in range(j1,j2):
+            zero_matrix[i-(i1)][j-(j1)] = matrix[i][j]
+    return zero_matrix
+
+def paste_matrix(matrix_F, matrix, column_index, row_index):
+  a = column_index
+  for row in matrix:
+    for element in row:
+      matrix_F[row_index][column_index] = element
+      column_index += 1
+    row_index += 1
+    column_index = a
+
+
+
+
+K = int(input("Введите число K: \n "))
+n = int(input("Введите число число N являющееся порядком квадратной матрицы:\n "))
+
+print("Матрица А:")
+matrix_A = [[random.randint(0, 1) for i in range(n)] for j in range(n)]   
+
+print_matrix(matrix_A)       
+
+half_n = n//2
+fix_n=half_n
+
+
+matrix_C=matrix_input(matrix_A,fix_n,n,fix_n,n)
+matrix_B = matrix_input(matrix_A,0,half_n,fix_n,n)
+matrix_E = matrix_input(matrix_A,0,half_n,0,half_n) 
+matrix_D = matrix_input(matrix_A,fix_n,n,0,half_n) 
+zero, summ = 0,0
+
+for i in range ((n // 2), (n//2) + (n//4)+1 ):      
+    for j in range (i,  n - i + (n//2)):
+        if j  % 2 != 0 and matrix_A[i][j]==0:
+            zero+=1
+for j in range ((n // 2), (n//2) + (n//4)+1 ):      
+    summ *= matrix_A[j][j]*matrix_A[n - j + (n//2)-1][n - j + (n//2)-1]
+
+matrix_C=matrix_input(matrix_A,fix_n,n,fix_n,n)
+matrix_B = matrix_input(matrix_A,0,half_n,fix_n,n)
+matrix_E = matrix_input(matrix_A,0,half_n,0,half_n) 
+matrix_D = matrix_input(matrix_A,fix_n,n,0,half_n) 
+if zero > summ:
+     print('Начальная подматрциа C:')
+     print_matrix(matrix_C)
+     for i in range((n//2) ,(n//2) + (n // 4) ):
+        for j in range(i, n - i + (n//2)):
+            matrix_A[i][j], matrix_A[j][i] = matrix_A[j][i], matrix_A[i][j]
+     matrix_C=matrix_input(matrix_A,fix_n,n,fix_n,n)
+     print('Получившаяся подматрица С:')
+     print_matrix(matrix_C)
+else:
+     matrix_E, matrix_B = matrix_B, matrix_E
+
+matrix_F=matrix_A.copy()
+paste_matrix(matrix_F, matrix_E, 0, 0)
+paste_matrix(matrix_F, matrix_B, fix_n, 0)
+paste_matrix(matrix_F, matrix_C, fix_n, fix_n)
+paste_matrix(matrix_F, matrix_D, 0, fix_n)
+print('Созданная по условию матрица F:')
+print_matrix(matrix_F)
+
+matrix_A_transp = matrix_zero(n) 
+matrix_AAt = matrix_zero(n)  
+print("Матрица A транспонированая, умноженная на коэф. К :")
+for i in range(n):
+    for j in range(n):
+        matrix_A_transp[i][j] = K*matrix_A[j][i]
+print_matrix(matrix_A_transp)
+print("Итоговое выражение А_Т*А")
+for i in range(n):
+    for j in range(n):
+        for k in range(n):
+            matrix_AAt[i][j]+=matrix_A_transp[i][k]*matrix_A[k][j]
+
+print_matrix(matrix_AAt)
