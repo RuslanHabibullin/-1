@@ -1,0 +1,50 @@
+def tran(M, a, b, n):
+    for i in range(n):
+        x = M[a][i]
+        M[a][i] = M[b][i]
+        M[b][i] = x
+    for j in range(n):
+        x = M[j][a]
+        M[j][a] = M[j][b]
+        M[j][b] = x
+
+def baseF(A, n):
+    for i in range(n):
+        for j in range(i, n):
+            tran(A, i, j, n)
+            print('\n')
+            print('\n'.join('\t'.join(map(str, row)) for row in A))
+
+            print(40 * '-')
+def addF(A, n, b):
+    for i in range(n):
+        if i == b:
+            break
+        for j in range(i, n):
+            if j == b:
+                break
+            tran(A, i, j, n)
+            print('\n')
+            print('\n'.join('\t'.join(map(str, row)) for row in A))
+            print(40 * '-')
+
+s = int(input("Введите режим работы программы. 0 - с ограничением, любое другое число - без ограничения     "))
+if s == 0:
+    b1 = int(input("Введите вершину состояние которой не нужно менять(у данной вершины будет оставатья "))
+print("Введите кол-во вершин и кол-во рёбер в дереве ")
+n, m = map(int, input().split())
+A = [[0] * n for _ in range(n)]
+D = []
+for it in range(m):
+    print("Введите вершину и идущих из неё детей")
+    r, c = map(int, input().split())
+    D.append(c)
+    A[r - 1][c - 1] = A[c - 1][r - 1] = 1
+print('\n'.join('\t'.join(map(str, row)) for row in A))
+setarr = set(D)
+if len(D) != len(setarr) or (n-m)!=1:
+    print("Вы ввели не дерево")
+elif s == 0:
+    addF(A, n, b1)
+else:
+    baseF(A, n)
