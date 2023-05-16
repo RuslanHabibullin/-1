@@ -39,7 +39,7 @@ n, m = map(int, input().split())
 A = [[0] * n for _ in range(n)]
 D = []
 for it in range(m):
-    print("Введите вершину и идущих из неё детей")
+    print("Введите вершину и идущего из него ребенка")
     r, c = map(int, input().split())
     D.append(c)
     A[r - 1][c - 1] = A[c - 1][r - 1] = 1
