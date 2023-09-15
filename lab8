@@ -67,7 +67,7 @@ entry = ttk.Entry()
 entry.pack(anchor=NW, padx=6, pady=6)
 btn = ttk.Button(text="Сгенерировать всевозможные деревья", command=trees.show_tree)
 
-label0 = ttk.Label(text = "Каждый элемент является узлом и внем написано, сколько правых детей у него существует")
+label0 = ttk.Label(text = "Каждый элемент является узлом и в нем написано, сколько правых рёбер у него существует")
 label0.pack()
 btn.pack(anchor=NW, padx=6, pady=6)
 
