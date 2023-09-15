@@ -63,6 +63,8 @@ class Lab8():
 trees = Lab8(3)
 root = Tk()
 root.title("Лабораторная работа №8")
+good = ttk.Label(text="Введите количество вершин в графе") 
+good.pack() 
 entry = ttk.Entry()
 entry.pack(anchor=NW, padx=6, pady=6)
 btn = ttk.Button(text="Сгенерировать всевозможные деревья", command=trees.show_tree)
