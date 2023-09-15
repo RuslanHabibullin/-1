@@ -63,7 +63,7 @@ class Lab8():
 trees = Lab8(3)
 root = Tk()
 root.title("Лабораторная работа №8")
-root.geometry("1000x1000")
+root.geometry("500x500")
 good = ttk.Label(text="Введите количество вершин в графе") 
 good.pack() 
 entry = ttk.Entry()
