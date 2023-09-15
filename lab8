@@ -1,13 +1,17 @@
+
+#Дано дерево из  К вершин. Сформировать все возможные варианты разметки данного дерева числами от 1 до К.
+#Усложненная версия: данная задача решается для бинарных деревьев
+
 from tkinter import *
 from tkinter import ttk
 
 class Lab8():
     def __init__(self,n):
-        self.n = n
-        self.trees = []
-        self.value = 0
-    def __generate_binary_trees(self,n):
-        if n == 0:
+        self.n = n                                  #количество вершин
+        self.trees = []                             #список хранящий все деревья из n вершин
+        self.value = 0                              #счетчик количества этих вершин
+    def __generate_binary_trees(self,n):            #функция генерирующая все бинарные деревья
+        if n == 0:                                  
             return []
 
         trees = []
