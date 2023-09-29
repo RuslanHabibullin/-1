@@ -170,11 +170,11 @@ class RegistrationWindow:
 
 
 
-if os.path.isfile("users2.txt"):
-    registration_window = RegistrationWindow("users.txt")
+if os.path.isfile("usersааа.txt"):
+    registration_window = RegistrationWindow("usersааа.txt")
 else:
-    myfile = open("users2.txt", "x")
-    registration_window = RegistrationWindow("users1.txt")
+    myfile = open("usersааа.txt", "x")
+    registration_window = RegistrationWindow("usersааа.txt")
 
 
 
