@@ -1,5 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
+import os
 
 class RegistrationWindow:
     def __init__(self, filename):
@@ -72,13 +73,21 @@ class RegistrationWindow:
                     return
         with open(self.filename, "a") as f:
             f.write(f"{username},{password}\n")
-            messagebox.showinfo("Успех", "Добро пожаловать")
+            messagebox.showinfo("Успех", "Добро пожаловать\nРегистрация прошла успешно")
             self.window.destroy()
             return
 
     def run(self):
         self.window.mainloop()
 
-registration_window = RegistrationWindow("users.txt")
+
+
+if os.path.isfile("users2.txt"):
+    registration_window = RegistrationWindow("users.txt")
+else:
+    myfile = open("users2.txt", "x")
+    registration_window = RegistrationWindow("users1.txt")
+
+
 
 registration_window.run()
