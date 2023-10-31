@@ -1,0 +1,24 @@
+
+import random
+import numpy as np
+from decimal import Decimal
+import tkinter as tk
+rank = random.randint(0,100)
+X0 = np.random.rand(rank,rank)*10.0
+X1 = np.triu(X0)
+print("Исходна матрица: ")
+print(X1)
+det = np.linalg.det(X1)
+if det >= 0:
+    s = (-1)*2*det
+else:
+    s = 2*det
+print("Определитель матрицы det(X) = ",det)
+t = int(input("Введите количество знаков после запятой "))
+
+i = 4
+while Decimal(str(s)).as_tuple().exponent*(-1) > t:
+    i+=1
+    s += (-1)*det*(i-1)
+
+print("Конечная сумма s = ",s,"\nВсего итераций потребовалось: " ,i)
