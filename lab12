@@ -2,14 +2,14 @@
 import random
 import numpy as np
 from decimal import Decimal
-import tkinter as tk
-rank = random.randint(0,100)
-X0 = np.random.rand(rank,rank)*10.0
-X1 = np.triu(X0)
+
+rank = random.randint(0,100) #генерируем ранг матрицы
+X0 = np.random.rand(rank,rank)*10.0 #генерируем матрицу
+X1 = np.triu(X0) #приводим матрицу к треугольному виду для оптимизации
 print("Исходна матрица: ")
 print(X1)
-det = np.linalg.det(X1)
-if det >= 0:
+det = np.linalg.det(X1) #вычисояем определитель
+if det >= 0: #проверка на первый элемент
     s = (-1)*2*det
 else:
     s = 2*det
@@ -17,7 +17,7 @@ print("Определитель матрицы det(X) = ",det)
 t = int(input("Введите количество знаков после запятой "))
 
 i = 4
-while Decimal(str(s)).as_tuple().exponent*(-1) > t:
+while Decimal(str(s)).as_tuple().exponent*(-1) > t: #цикл считающий сумму до определенного знака после запятой
     i+=1
     s += (-1)*det*(i-1)
 
