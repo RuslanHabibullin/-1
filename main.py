@@ -14,12 +14,12 @@ data = read_csv('titanic.csv')
 sale = []
 count = []
 for i in range(1,len(data)):
-    if data[i][5]!='':
+    if data[i][5]!='' and data[i][11] == 'C':
         sale.append(data[i][5])
         count.append(i)
 
-print("Мода возраста:",my_mode(sale))
-print("Номер пассажиров чей возраст указан:",count)
+print("Мода возраста людей из порта в Квинстауне:",my_mode(sale)[0])
+print("Номер пассажиров чей возраст указан  они сели в Квинстауне:",count)
 s=0
 sale1 = []
 for i in count:
@@ -29,4 +29,4 @@ for i in count:
 for i in range(len(sale1)):
     sale1[i] = float(sale1[i])
 print("Стоимости билетов тех пассажиров, которые попали в диапазон ",sale1)
-print("Суммарная стоимость билетов пассажиров , севших в порту Квинстаун,\n в возрастном интервале мода +- 10 позиций:", str(round(sum(sale1),3))+'$')
+print("\nСуммарная стоимость билетов пассажиров , севших в порту Квинстаун,\n в возрастном интервале мода +- 10 позиций:", str(round(sum(sale1),3))+'$')
